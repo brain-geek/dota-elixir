@@ -1,6 +1,4 @@
 defmodule Dota.Dotabuff do
-  require IEx
-
   def match_ids_stream(account_id) do
     url = matches_url(account_id)
     case HTTPoison.get(url, [], []) do
@@ -20,7 +18,7 @@ defmodule Dota.Dotabuff do
     case HTTPoison.get(url) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         body
-      response -> 
+      response ->
         {:error, response}
     end
   end
@@ -40,9 +38,9 @@ defmodule Dota.Dotabuff do
   end
 
   defp get_match_ids_from_page(body) do
-    body 
-    |> Floki.find(".cell-large a") 
-    |> Floki.attribute("href") 
+    body
+    |> Floki.find(".cell-large a")
+    |> Floki.attribute("href")
     |> Enum.map(&String.split(&1, "/"))
     |> Enum.map(&List.last/1)
     |> Enum.map(&String.to_integer/1)

@@ -1,6 +1,4 @@
 defmodule Dota.Steam do
-  require IEx
-
   @hero_img_sizes ~w(sb.png lg.png full.png)
 
   def fetch("GetDotabuffMatchHistory", account_id), do: Dota.Dotabuff.history(account_id)
