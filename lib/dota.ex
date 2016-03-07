@@ -8,7 +8,7 @@ defmodule Dota do
 
   # Returns a single match in full detail
   def match(match_id) do
-    details = Steam.fetch("GetMatchDetails", %{match_id: match_id}) 
+    details = Steam.fetch("GetMatchDetails", %{match_id: match_id})
     case details do
       {:error, reason} -> details
       _ -> {:ok, details}
@@ -21,6 +21,15 @@ defmodule Dota do
     case summaries do
       {:error, reason} -> summaries
       _ -> {:ok, summaries}
+    end
+  end
+
+  # Returns a list of live matches
+  def live_league_games do
+    summaries = Steam.fetch("GetLiveLeagueGames")
+    case summaries do
+      %{"games" => games} -> {:ok, games}
+      _ -> {:error, summaries}
     end
   end
 
@@ -50,7 +59,7 @@ defmodule Dota do
   end
 
   def friends(id) do
-    profiles = Steam.fetch("GetFriendList", %{steamid: id}, "ISteamUser") 
+    profiles = Steam.fetch("GetFriendList", %{steamid: id}, "ISteamUser")
     |> Enum.map(&Map.get(&1, "steamid"))
     |> profiles
     {:ok, profiles}
@@ -65,7 +74,7 @@ defmodule Dota do
 
   def hero_img(id), do: Steam.get_hero_image(id)
 
-  def items do 
+  def items do
     case Steam.fetch("GetGameItems", %{}, "IEconDOTA2_570") do
       {:ok, items} -> items["items"]
       response -> response
