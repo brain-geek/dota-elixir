@@ -29,6 +29,6 @@ defmodule Dota.Mixfile do
   defp deps do
     [{:httpoison, "~> 0.7.2"},
      {:poison, "~> 1.5.0"},
-     {:floki, "~> 0.5.0"}]
+     {:floki, "~> 0.7.1"}]
   end
 end
