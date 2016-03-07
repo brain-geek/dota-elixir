@@ -41,7 +41,7 @@ defmodule Dota.Steam do
   end
 
   defp get_params(options) do
-    api_key = System.get_env("STEAM_WEB_API_KEY")
+    api_key = Application.get_env(:dota, :api_key)
     params = options
     |> Map.put(:key, api_key)
     |> Map.put(:language, "en_us")
